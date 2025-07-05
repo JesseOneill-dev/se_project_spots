@@ -16,7 +16,7 @@ This project dives into technolgy and best practices for creating a responisive 
 
 This page is deployed to Github Pages
 
-- Deployment link:
+- Deployment link: https://jesseoneill-dev.github.io/se_project_spots/
 
 ### Overview
 
