@@ -18,6 +18,10 @@ This page is deployed to Github Pages
 
 - Deployment link: https://jesseoneill-dev.github.io/se_project_spots/
 
+## Video Explaner
+
+- Video link: https://drive.google.com/file/d/1c4pY-qmXoDNaoJtvUvjRfi__GkiX-lWl/view?usp=drive_link
+
 ### Overview
 
 - Intro

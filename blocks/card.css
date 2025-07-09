@@ -7,15 +7,19 @@
   width: 413px;
   object-fit: cover;
   display: block;
+  border-radius: 8px;
 }
 
 .card__content {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 12px;
 }
 
 .card__title {
+  margin: 0;
+  max-width: calc(100% - 23px);
   font-weight: 500;
   font-size: 20px;
   line-height: 1.2;
@@ -31,6 +35,7 @@
   border: none;
   background-color: transparent;
   opacity: 40%;
+  cursor: pointer;
 }
 
 .card__like-btn:hover {
@@ -40,6 +45,6 @@
 @media screen and (max-width: 627px) {
   .card__image {
     height: 288px;
-    max-width: 288px;
+    width: calc(100% - 20px);
   }
 }
