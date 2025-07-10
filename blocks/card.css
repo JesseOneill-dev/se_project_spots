@@ -26,6 +26,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  color: rgba(33, 33, 33, 1);
 }
 
 .card__like-btn {
@@ -45,6 +46,8 @@
 @media screen and (max-width: 627px) {
   .card__image {
     height: 288px;
-    width: calc(100% - 20px);
+    width: 288px;
+    font-size: 16px;
+    line-height: 1;
   }
 }
