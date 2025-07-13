@@ -129,4 +129,8 @@
     max-width: 288px;
     width: 100%;
   }
+
+  .profile__edit-btn {
+    align-self: center;
+  }
 }
