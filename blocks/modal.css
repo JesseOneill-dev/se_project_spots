@@ -57,7 +57,7 @@
 
 .modal__label {
   margin: 0 0 32px;
-  font-family: Poppins;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 110.00000000000001%;
@@ -93,16 +93,58 @@
   padding-left: 32px;
   background-color: rgba(33, 33, 33, 1);
   color: rgba(252, 245, 229, 1);
-  font-family: Poppins;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 100%;
+}
+
+.modal__image-container {
+  position: relative;
+}
+
+.modal__close_type_preview {
+  top: 0;
+  right: -52.5px;
+}
+
+.modal__image {
+  display: block;
+  max-width: 80vw;
+  max-height: 80vh;
+  width: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.modal__caption {
+  width: fit-content;
+  color: white;
+  border-radius: 8px;
+  background-color: rgba(33, 33, 33, 1);
+  top: 750px;
+  left: 223px;
+  opacity: 1;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 120%;
 }
 
 @media screen and (max-width: 627px) {
   .modal__container {
     padding: 12px;
   }
+
+  .modal__close_type_preview {
+    top: -48px;
+    right: 0;
+  }
+
   .modal__close-btn {
     top: 0;
     right: 6px;
