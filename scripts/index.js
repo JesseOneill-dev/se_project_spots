@@ -45,7 +45,7 @@ const newPostModal = document.querySelector("#new-post-modal");
 const addCardFormElement = newPostModal.querySelector(".modal__form");
 const newPostCloseBtn = newPostModal.querySelector(".modal__close-btn");
 const newNameInput = newPostModal.querySelector("#card-image-input");
-const newLinkInput = newPostModal.querySelector("#profile-description-input");
+const newLinkInput = newPostModal.querySelector("#card-image-input");
 
 const profileNameEl = document.querySelector(".profile__name");
 const profileDescriptionEl = document.querySelector(".profile__description");
@@ -69,14 +69,13 @@ function getCardElement(data) {
   cardTitleEl.textContent = data.name;
 
   const cardLikeBtnEl = cardElement.querySelector(".card__like-btn");
-  cardLikeBtnEl.addEventListener("click", () => {
-    cardLikeBtnEl.classList.toggle(".card__like-btn:active");
+  cardLikeBtnEl.addEventListener("click", (evt) => {
+    evt.target.classList.toggle("card__like-btn_active");
   });
 
   const cardDelBtnEl = cardElement.querySelector(".card__delete-btn");
-  cardDelBtnEl.addEventListener("click", () => {
-    cardElement.remove();
-    cardElement = null;
+  cardDelBtnEl.addEventListener("click", (evt) => {
+    evt.target.closest(".card").remove();
   });
 
   cardImageEl.addEventListener("click", () => {
