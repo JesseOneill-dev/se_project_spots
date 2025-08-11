@@ -116,6 +116,8 @@ function handleAddCardSubmit(evt) {
   const cardElement = getCardElement(inputValues);
   cardsList.prepend(cardElement);
   closeModal(newPostModal);
+  newNameInput.value = "";
+  newLinkInput.value = "";
 }
 
 editProfileBtn.addEventListener("click", () => {
