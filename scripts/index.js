@@ -46,6 +46,7 @@ const addCardFormElement = newPostModal.querySelector(".modal__form");
 const newPostCloseBtn = newPostModal.querySelector(".modal__close-btn");
 const newNameInput = newPostModal.querySelector("#modal-description-input");
 const newLinkInput = newPostModal.querySelector("#card-image-input");
+const cardSubmitBtn = newPostModal.querySelector(".modal__submit-btn");
 
 const profileNameEl = document.querySelector(".profile__name");
 const profileDescriptionEl = document.querySelector(".profile__description");
@@ -115,10 +116,23 @@ function handleAddCardSubmit(evt) {
   };
   const cardElement = getCardElement(inputValues);
   cardsList.prepend(cardElement);
-  closeModal(newPostModal);
+  disableButton(cardSubmitBtn);
   newNameInput.value = "";
   newLinkInput.value = "";
+  closeModal(newPostModal);
 }
+
+editProfileModal.addEventListener("click", (evt) => {
+  if (evt.target === evt.currentTarget) {
+    closeModal(editProfileModal);
+  }
+}); //test
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape" && editProfileModal.style.display !== "none") {
+    closeModal(editProfileModal);
+  }
+});
 
 editProfileBtn.addEventListener("click", () => {
   editProfileNameInput.value = profileNameEl.textContent;
@@ -139,6 +153,30 @@ newPostBtn.addEventListener("click", () => {
 
 newPostCloseBtn.addEventListener("click", () => {
   closeModal(newPostModal);
+});
+
+newPostModal.addEventListener("click", (evt) => {
+  if (evt.target === evt.currentTarget) {
+    closeModal(newPostModal);
+  }
+}); //test
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape" && newPostModal.style.display !== "none") {
+    closeModal(newPostModal);
+  }
+});
+
+previewModal.addEventListener("click", (evt) => {
+  if (evt.target === evt.currentTarget) {
+    closeModal(previewModal);
+  }
+}); //test
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape" && previewModal.style.display !== "none") {
+    closeModal(previewModal);
+  }
 });
 
 initialCards.forEach(function (item) {
