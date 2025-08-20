@@ -95,10 +95,12 @@ function getCardElement(data) {
 
 function openModal(modal) {
   modal.classList.add("modal_is-opened");
+  document.addEventListener("keydown", escapeModal);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_is-opened");
+  document.removeEventListener("keydown", escapeModal);
 }
 
 function handleProfileFormSubmit(evt) {
@@ -122,14 +124,17 @@ function handleAddCardSubmit(evt) {
   closeModal(newPostModal);
 }
 
+function escapeModal(evt) {
+  if (evt.key === "Escape") {
+    evt.preventDefault();
+    closeModal(editProfileModal);
+    closeModal(newPostModal);
+    closeModal(previewModal);
+  }
+}
+
 editProfileModal.addEventListener("click", (evt) => {
   if (evt.target === evt.currentTarget) {
-    closeModal(editProfileModal);
-  }
-}); //test
-
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape" && editProfileModal.style.display !== "none") {
     closeModal(editProfileModal);
   }
 });
@@ -159,22 +164,10 @@ newPostModal.addEventListener("click", (evt) => {
   if (evt.target === evt.currentTarget) {
     closeModal(newPostModal);
   }
-}); //test
-
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape" && newPostModal.style.display !== "none") {
-    closeModal(newPostModal);
-  }
 });
 
 previewModal.addEventListener("click", (evt) => {
   if (evt.target === evt.currentTarget) {
-    closeModal(previewModal);
-  }
-}); //test
-
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape" && previewModal.style.display !== "none") {
     closeModal(previewModal);
   }
 });

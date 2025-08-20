@@ -133,7 +133,7 @@
   position: relative;
 }
 
-.modal__close_type_preview {
+.modal__close-btn_type_preview {
   top: 0;
   right: -52.5px;
 }
@@ -170,7 +170,7 @@
     padding: 12px;
   }
 
-  .modal__close_type_preview {
+  .modal__close-btn_type_preview {
     top: -48px;
     right: 0;
   }
