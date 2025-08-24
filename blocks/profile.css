@@ -69,6 +69,7 @@
 .profile__add-btn {
   margin-left: auto;
   display: grid;
+  cursor: pointer;
   grid-template-columns: auto auto;
   justify-content: center;
   align-items: center;
