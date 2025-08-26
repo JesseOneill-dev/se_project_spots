@@ -23,16 +23,11 @@ const hideInputError = (formElement, inputElement, config) => {
 
 const resetInputError = (formElement, inputElement, config) => {
   inputElement.forEach((input) => {
-    const errorMsgID = input.id + "-error";
-    const errorMsgEL = formElement.querySelector("#" + errorMsgID);
-    console.log(input);
-    console.log(errorMsgEL.textContent);
-    errorMsgEL.textContent = "";
-    input.classList.remove(config.inputErrorClass);
+    hideInputError(formElement, input, config);
   });
 };
 
-const checkInputValidity = (formEl, inputElement, config) => {
+const checkInputValidity = (formEl, inputElement, settings) => {
   if (!inputElement.validity.valid) {
     showInputError(
       formEl,

@@ -97,7 +97,6 @@ function getCardElement(data) {
 function openModal(modal) {
   modal.classList.add("modal_is-opened");
   document.addEventListener("keydown", escapeModal);
-  resetInputError(editSubmitModal, editInputModal, settings); // testing
 }
 
 function closeModal(modal) {
@@ -143,6 +142,7 @@ editProfileModal.addEventListener("click", (evt) => {
 editProfileBtn.addEventListener("click", () => {
   editProfileNameInput.value = profileNameEl.textContent;
   editProfileDescriptionInput.value = profileDescriptionEl.textContent;
+  resetInputError(editSubmitModal, editInputModal, settings);
   openModal(editProfileModal);
 });
 
