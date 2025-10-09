@@ -1,4 +1,4 @@
-const settings = {
+export const settings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__submit-btn",
@@ -21,7 +21,7 @@ const hideInputError = (formElement, inputElement, config) => {
   inputElement.classList.remove(config.inputErrorClass);
 };
 
-const resetInputError = (formElement, inputElement, config) => {
+export const resetInputError = (formElement, inputElement, config) => {
   inputElement.forEach((input) => {
     hideInputError(formElement, input, config);
   });
@@ -55,7 +55,7 @@ const toggleButtonState = (inputList, buttonElement, config) => {
   }
 };
 
-const disableButton = (buttonElement, config) => {
+export const disableButton = (buttonElement, config) => {
   buttonElement.disabled = true;
   buttonElement.classList.add(config.inactiveButtonClass);
 };
