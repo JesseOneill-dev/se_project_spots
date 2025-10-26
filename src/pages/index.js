@@ -1,10 +1,6 @@
 import "./index.css";
 import "../scripts/validation.js";
-import {
-  resetInputError,
-  settings,
-  disableButton,
-} from "../scripts/validation.js";
+import { disableButton, settings } from "../scripts/validation.js";
 ("../scripts/validation.js");
 import Api from "../utils/Api.js";
 import { setButtonText } from "../utils/helper.js";
@@ -51,21 +47,22 @@ const api = new Api({
 //TODO- Destructure the second item in the callback of the .then()
 api
   .getAppInfo()
-  .then(([cards]) => {
+  .then(([cards, userData]) => {
     cards.forEach(function (item) {
-      // console.log(item);
       const cardElement = getCardElement(item);
       cardsList.append(cardElement);
     });
     //TODO- Handle the user's information
     //  - set the src of the avatar
     //  - set the textContent of both the text elements
+    console.log(userData);
+    profileImageEl.src = userData.avatar;
+    profileNameEl.textContent = userData.name;
+    profileDescriptionEl.textContent = userData.about;
   })
   .catch((err) => {
     console.error(err);
   });
-
-// api.getUserInfo();
 
 const editProfileBtn = document.querySelector(".profile__edit-btn");
 const editProfileModal = document.querySelector("#edit-profile-modal");
@@ -84,9 +81,10 @@ const avatarModalBtn = document.querySelector(".profile__avatar-btn");
 const newPostModal = document.querySelector("#new-post-modal");
 const addCardFormElement = newPostModal.querySelector(".modal__form");
 const newPostCloseBtn = newPostModal.querySelector(".modal__close-btn");
+const newInputModal = newPostModal.querySelectorAll(".modal__input");
 const newNameInput = newPostModal.querySelector("#modal-description-input");
 const newLinkInput = newPostModal.querySelector("#card-image-input");
-const cardSubmitBtn = newPostModal.querySelector(".modal__submit-btn");
+const cardSubmitBtn = newPostModal.querySelector(".modal__btn");
 
 const profileNameEl = document.querySelector(".profile__name");
 const profileDescriptionEl = document.querySelector(".profile__description");
@@ -104,12 +102,14 @@ const cardsList = document.querySelector(".cards__list");
 const avatarModal = document.querySelector("#avatar-modal");
 const avatarFormElement = avatarModal.querySelector(".modal__form");
 const avatarCloseBtn = avatarModal.querySelector(".modal__close-btn");
-const avatarSubmitBtn = avatarModal.querySelector(".modal__submit-btn");
+const avatarSubmitBtn = avatarModal.querySelector(".modal_btn-del");
 const avatarInput = avatarModal.querySelector("#profile-avatar-input");
 
 // Delete form elements
 const deleteModal = document.querySelector("#delete-modal");
 const deleteForm = deleteModal.querySelector(".modal__form");
+const deleteCloseBtn = deleteModal.querySelector(".modal__close-btn");
+const deleteCancelBtn = deleteModal.querySelector(".modal__btn-cancel");
 
 let selectedCard;
 let selectedCardId;
@@ -120,8 +120,11 @@ function getCardElement(data) {
     .cloneNode(true);
   const cardTitleEl = cardElement.querySelector(".card__title");
   const cardImageEl = cardElement.querySelector(".card__image");
+  const cardLikeEl = cardElement.querySelector(".card__like-btn");
 
-  // TODO- if card isLiked, set active class on card
+  data.isLiked
+    ? cardLikeEl.classList.add("card__like-btn_active")
+    : console.log("not liked");
 
   cardImageEl.src = data.link;
   cardImageEl.alt = data.name;
@@ -193,8 +196,10 @@ function handleProfileFormSubmit(evt) {
     })
     .then((data) => {
       //Todo- Use data argument instead fo the input values
-      profileNameEl.textContent = editProfileNameInput.value;
-      profileDescriptionEl.textContent = editProfileDescriptionInput.value;
+      profileNameEl.textContent = data.name;
+      profileDescriptionEl.textContent = data.about;
+      //       profileNameEl.textContent = editProfileNameInput.value;
+      // profileDescriptionEl.textContent = editProfileDescriptionInput.value;
       closeModal(editProfileModal);
     })
     .catch(console.error)
@@ -219,7 +224,10 @@ function handleAddCardSubmit(evt) {
       console.log(data);
       const cardElement = getCardElement(data);
       console.log(cardElement);
-      cardsList.append(cardElement);
+      cardsList.prepend(cardElement);
+      disableButton(cardSubmitBtn, settings);
+      newNameInput.value = "";
+      newLinkInput.value = "";
       closeModal(newPostModal);
     })
     .catch(console.error);
@@ -303,7 +311,7 @@ editProfileModal.addEventListener("click", (evt) => {
 editProfileBtn.addEventListener("click", () => {
   editProfileNameInput.value = profileNameEl.textContent;
   editProfileDescriptionInput.value = profileDescriptionEl.textContent;
-  resetInputError(editSubmitModal, editInputModal, settings);
+  // resetInputError(editSubmitModal, editInputModal, settings);
   openModal(editProfileModal);
 });
 
@@ -343,4 +351,12 @@ previewModal.addEventListener("click", (evt) => {
   if (evt.target === evt.currentTarget) {
     closeModal(previewModal);
   }
+});
+
+deleteCloseBtn.addEventListener("click", () => {
+  closeModal(deleteModal);
+});
+
+deleteCancelBtn.addEventListener("click", () => {
+  closeModal(deleteModal);
 });
