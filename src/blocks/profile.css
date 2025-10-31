@@ -121,15 +121,13 @@
 
 @media screen and (max-width: 627px) {
   .profile {
+    display: flex;
+    justify-content: center;
     flex-direction: column;
     max-width: 288px;
     align-items: center;
     text-align: center;
     padding-top: 20px;
-  }
-
-  .profile__avatar-btn {
-    visibility: visible;
   }
 
   /* TODO- set content of ::after element to equal "" */

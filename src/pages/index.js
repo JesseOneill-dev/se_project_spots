@@ -1,9 +1,13 @@
 import "./index.css";
 import "../scripts/validation.js";
-import { disableButton, settings } from "../scripts/validation.js";
+import {
+  disableButton,
+  settings,
+  resetInputError,
+} from "../scripts/validation.js";
 ("../scripts/validation.js");
 import Api from "../utils/Api.js";
-import { setButtonText } from "../utils/helper.js";
+import { setButtonText, setDelButtonText } from "../utils/helper.js";
 
 // const initialCards = [
 //   {
@@ -270,6 +274,8 @@ function handleAvatarSubmit(evt) {
 
 function handleDeleteSubmit(evt) {
   evt.preventDefault();
+  const submitBtn = evt.submitter;
+  setDelButtonText(submitBtn, true);
   api
     .deleteCard(selectedCardId)
     .then((res) => {
@@ -284,7 +290,10 @@ function handleDeleteSubmit(evt) {
       // const cardElement = getCardElement(data);
       // cardsList.append(cardElement);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setDelButtonText(submitBtn, false);
+    });
 }
 
 function handleDeleteCard(cardElement, cardId) {
@@ -311,7 +320,7 @@ editProfileModal.addEventListener("click", (evt) => {
 editProfileBtn.addEventListener("click", () => {
   editProfileNameInput.value = profileNameEl.textContent;
   editProfileDescriptionInput.value = profileDescriptionEl.textContent;
-  // resetInputError(editSubmitModal, editInputModal, settings);
+  resetInputError(editSubmitModal, editInputModal, settings);
   openModal(editProfileModal);
 });
 
@@ -344,6 +353,22 @@ newPostCloseBtn.addEventListener("click", () => {
 newPostModal.addEventListener("click", (evt) => {
   if (evt.target === evt.currentTarget) {
     closeModal(newPostModal);
+  }
+});
+
+avatarCloseBtn.addEventListener("click", () => {
+  closeModal(avatarModal);
+});
+
+deleteModal.addEventListener("click", (evt) => {
+  if (evt.target === evt.currentTarget) {
+    closeModal(deleteModal);
+  }
+});
+
+avatarModal.addEventListener("click", (evt) => {
+  if (evt.target === evt.currentTarget) {
+    closeModal(avatarModal);
   }
 });
 
