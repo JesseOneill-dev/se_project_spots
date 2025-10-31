@@ -9,37 +9,6 @@ import {
 import Api from "../utils/Api.js";
 import { setButtonText, setDelButtonText } from "../utils/helper.js";
 
-// const initialCards = [
-//   {
-//     name: "Golden Gate Bridge",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
-//   },
-//   {
-//     name: "Val Thorens",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
-//   },
-//   {
-//     name: "Restaurant terrace",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-//   },
-//   {
-//     name: "An outdoor cafe",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
-//   },
-//   {
-//     name: "A very long bridge, over the forest and through the trees",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
-//   },
-//   {
-//     name: "Tunnel with morning light",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
-//   },
-//   {
-//     name: "Mountain house",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
-//   },
-// ];
-
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
@@ -48,7 +17,6 @@ const api = new Api({
   },
 });
 
-//TODO- Destructure the second item in the callback of the .then()
 api
   .getAppInfo()
   .then(([cards, userData]) => {
@@ -56,10 +24,7 @@ api
       const cardElement = getCardElement(item);
       cardsList.append(cardElement);
     });
-    //TODO- Handle the user's information
-    //  - set the src of the avatar
-    //  - set the textContent of both the text elements
-    console.log(userData);
+
     profileImageEl.src = userData.avatar;
     profileNameEl.textContent = userData.name;
     profileDescriptionEl.textContent = userData.about;
@@ -135,12 +100,6 @@ function getCardElement(data) {
   cardTitleEl.textContent = data.name;
 
   function handleLike(evt, id) {
-    // TODO- remove "evt.target.classList.toggle("card__like-btn_active")"
-    // check whether card is currently liked
-    // const isLiked = ???;
-    // call the changeLikeStatus method, passing it the appropriate arguments
-    // handle the response (,then and .catch)
-    // in .then toggle active class
     evt.preventDefault();
     const isLiked = evt.target.classList.contains("card__like-btn_active");
     api
@@ -150,7 +109,6 @@ function getCardElement(data) {
         evt.target.classList.toggle("card__like-btn_active");
       })
       .catch(console.error);
-    // evt.target.classList.toggle("card__like-btn_active");
   }
 
   const cardLikeBtnEl = cardElement.querySelector(".card__like-btn");
@@ -158,7 +116,6 @@ function getCardElement(data) {
 
   const cardDelBtnEl = cardElement.querySelector(".card__delete-btn");
   cardDelBtnEl.addEventListener("click", (evt) => {
-    // evt.target.closest(".card").remove();
     handleDeleteCard(cardElement, data._id);
   });
 
@@ -199,35 +156,23 @@ function handleProfileFormSubmit(evt) {
       about: editProfileDescriptionInput.value,
     })
     .then((data) => {
-      //Todo- Use data argument instead fo the input values
       profileNameEl.textContent = data.name;
       profileDescriptionEl.textContent = data.about;
-      //       profileNameEl.textContent = editProfileNameInput.value;
-      // profileDescriptionEl.textContent = editProfileDescriptionInput.value;
       closeModal(editProfileModal);
     })
     .catch(console.error)
     .finally(() => {
-      // submitBtn.textContent = "Save";
       setButtonText(submitBtn, false);
     });
 }
 
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
-  // console.log(newLinkInput.value);
-  // https://www.google.com
-  // https://placehold.co/600x400/EEE/31343C
 
   api
     .addCards({ link: newLinkInput.value, name: newNameInput.value })
     .then((data) => {
-      //Todo- Use data argument instead fo the input values
-      // profileNameEl.textContent = editProfileNameInput.value;
-      // profileDescriptionEl.textContent = editProfileDescriptionInput.value;
-      console.log(data);
       const cardElement = getCardElement(data);
-      console.log(cardElement);
       cardsList.prepend(cardElement);
       disableButton(cardSubmitBtn, settings);
       newNameInput.value = "";
@@ -235,22 +180,10 @@ function handleAddCardSubmit(evt) {
       closeModal(newPostModal);
     })
     .catch(console.error);
-  // const inputValues = {
-  //   name: newNameInput.value,
-  //   link: newLinkInput.value,
-  // };
-  // const cardElement = getCardElement(inputValues);
-  // cardsList.prepend(cardElement);
-  // disableButton(cardSubmitBtn, settings);
-  // newNameInput.value = evt.target.reset();
-  // newLinkInput.value = evt.target.reset();
-  // closeModal(newPostModal);
 }
 
 function handleAvatarSubmit(evt) {
   evt.preventDefault();
-  // avatarInput.value
-  // TODO- finish the avatar submission handler
   api
     .editAvatarInfo(avatarInput.value)
     .then((data) => {
@@ -259,17 +192,6 @@ function handleAvatarSubmit(evt) {
       closeModal(avatarModal);
     })
     .catch(console.error);
-  // console.log(avatarInput.value);
-  // const inputValues = {
-  //   name: newNameInput.value,
-  //   link: newLinkInput.value,
-  // };
-  // const cardElement = getCardElement(inputValues);
-  // cardsList.prepend(cardElement);
-  // disableButton(cardSubmitBtn, settings);
-  // newNameInput.value = evt.target.reset();
-  // newLinkInput.value = evt.target.reset();
-  // closeModal(newPostModal);
 }
 
 function handleDeleteSubmit(evt) {
@@ -280,15 +202,10 @@ function handleDeleteSubmit(evt) {
     .deleteCard(selectedCardId)
     .then((res) => {
       console.log(res);
-      // TODO-remove card from the dom and close modal
 
       console.log(selectedCard);
-      // cardsList.remove(selectedCard);
       selectedCard.remove();
       closeModal(deleteModal);
-
-      // const cardElement = getCardElement(data);
-      // cardsList.append(cardElement);
     })
     .catch(console.error)
     .finally(() => {
@@ -327,11 +244,7 @@ editProfileBtn.addEventListener("click", () => {
 editSubmitModal.addEventListener("submit", handleProfileFormSubmit);
 addCardFormElement.addEventListener("submit", handleAddCardSubmit);
 
-// TODO- select avatar modal button at top of the page
 avatarModalBtn.addEventListener("click", () => {
-  // editProfileNameInput.value = profileNameEl.textContent;
-  // editProfileDescriptionInput.value = profileDescriptionEl.textContent;
-  // resetInputError(editSubmitModal, editInputModal, settings);
   openModal(avatarModal);
 });
 
