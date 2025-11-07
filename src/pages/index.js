@@ -105,7 +105,6 @@ function getCardElement(data) {
     api
       .toggleLike(id, isLiked)
       .then((res) => {
-        console.log(res);
         evt.target.classList.toggle("card__like-btn_active");
       })
       .catch(console.error);
@@ -124,10 +123,6 @@ function getCardElement(data) {
     previewImageEl.alt = data.name;
     previewNameEl.textContent = data.name;
     openModal(previewModal);
-  });
-
-  previewModalCloseBtn.addEventListener("click", () => {
-    closeModal(previewModal);
   });
 
   return cardElement;
@@ -169,6 +164,10 @@ function handleProfileFormSubmit(evt) {
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
 
+  const submitBtn = evt.submitter;
+  // submitBtn.textContent = "Saving...";
+  setButtonText(submitBtn, true);
+
   api
     .addCards({ link: newLinkInput.value, name: newNameInput.value })
     .then((data) => {
@@ -179,11 +178,18 @@ function handleAddCardSubmit(evt) {
       newLinkInput.value = "";
       closeModal(newPostModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false);
+    });
 }
 
 function handleAvatarSubmit(evt) {
   evt.preventDefault();
+  const submitBtn = evt.submitter;
+  // submitBtn.textContent = "Saving...";
+  setButtonText(submitBtn, true);
+
   api
     .editAvatarInfo(avatarInput.value)
     .then((data) => {
@@ -191,7 +197,10 @@ function handleAvatarSubmit(evt) {
       profileImageEl.src = data.avatar;
       closeModal(avatarModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitBtn, false);
+    });
 }
 
 function handleDeleteSubmit(evt) {
@@ -289,6 +298,10 @@ previewModal.addEventListener("click", (evt) => {
   if (evt.target === evt.currentTarget) {
     closeModal(previewModal);
   }
+});
+
+previewModalCloseBtn.addEventListener("click", () => {
+  closeModal(previewModal);
 });
 
 deleteCloseBtn.addEventListener("click", () => {
