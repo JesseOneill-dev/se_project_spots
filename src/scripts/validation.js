@@ -1,8 +1,8 @@
-const settings = {
+export const settings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__submit-btn",
-  inactiveButtonClass: "modal__submit-btn_disabled",
+  submitButtonSelector: ".modal__btn",
+  inactiveButtonClass: "modal__btn_disabled",
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error",
 };
@@ -21,7 +21,7 @@ const hideInputError = (formElement, inputElement, config) => {
   inputElement.classList.remove(config.inputErrorClass);
 };
 
-const resetInputError = (formElement, inputElement, config) => {
+export const resetInputError = (formElement, inputElement, config) => {
   inputElement.forEach((input) => {
     hideInputError(formElement, input, config);
   });
@@ -51,16 +51,16 @@ const toggleButtonState = (inputList, buttonElement, config) => {
     disableButton(buttonElement, config);
   } else {
     enableButton(buttonElement, config);
-    buttonElement.classList.remove(config.inactiveButtonClass);
   }
 };
 
-const disableButton = (buttonElement, config) => {
+export const disableButton = (buttonElement, config) => {
   buttonElement.disabled = true;
   buttonElement.classList.add(config.inactiveButtonClass);
 };
 
 const enableButton = (buttonElement, config) => {
+  console.log(config);
   buttonElement.disabled = false;
   buttonElement.classList.remove(config.inactiveButtonClass);
 };
